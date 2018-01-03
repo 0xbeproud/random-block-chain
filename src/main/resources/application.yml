@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: random-block-chain
+
+logging:
+  level:
+    org.springframework:
+      web: 'off'
+      boot: 'off'
+      beans: 'off'
+    com.weproud: debug
