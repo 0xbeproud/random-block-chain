@@ -57,6 +57,6 @@ java -jar build/libs/random-block-chain-x.x.x-SNAPSHOT.jar
 
 ### Multi Request 
 
-Minber는 3초에 한번씩 block을 생성하며, Transaction pool에 있는 모든 Transaction을 block에 저장하여 block을 생성한다. 
+Miner는 3초에 한번씩 block을 생성하며, Transaction pool에 있는 모든 Transaction을 block에 저장하여 block을 생성한다. 
 
 ![alt tag](./doc/MultiRequest.png)
