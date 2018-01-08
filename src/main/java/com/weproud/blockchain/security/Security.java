@@ -5,7 +5,9 @@ import com.weproud.blockchain.tx.Transaction;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Logan. 81k
@@ -33,13 +35,23 @@ public class Security {
         return sha256;
     }
 
-    public static String calculateBlockHash(int index, String previousHash, Long timestamp, List<Transaction> transactions) {
-        String seed = String.format("%d%s%d%s", index, previousHash, timestamp, transactions);
+    public static String generateBlockHash(int index, String previousHash, Long timestamp, List<Transaction> transactions) {
+        String merkleRootHash = Security.generateMerkleRootHash(transactions);
+        String seed = generateHash(String.valueOf(index), previousHash, String.valueOf(timestamp), merkleRootHash);
         return calculateHash(seed);
     }
 
     public static String calculateTransactionHash(final String hash, final long timestamp, final List<Integer> randoms) {
-        String seed = String.format("%s%d%s", hash, timestamp, randoms);
-        return calculateHash(seed);
+        String joining = randoms.stream().map(String::valueOf).collect(Collectors.joining());
+        return calculateHash(generateHash(hash, String.valueOf(timestamp), joining));
+    }
+
+    public static String generateHash(String... values) {
+        return calculateHash(Arrays.stream(values).collect(Collectors.joining()));
+    }
+
+    // binary tree로 변환해야함. 일단 list로 처리.
+    public static String generateMerkleRootHash(final List<Transaction> tx) {
+        return calculateHash(tx.stream().map(Transaction::getHash).collect(Collectors.joining()));
     }
 }

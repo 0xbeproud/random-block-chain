@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Logan. 81k
@@ -31,7 +30,7 @@ public class Transaction {
     public int size(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.hash).append(timestamp);
-        randoms.forEach(r -> sb.append(r));
+        randoms.forEach(sb::append);
         return sb.toString().getBytes().length;
     }
 }

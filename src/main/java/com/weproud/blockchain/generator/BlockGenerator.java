@@ -5,7 +5,6 @@ import com.weproud.blockchain.security.Security;
 import com.weproud.blockchain.tx.Transaction;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,10 +16,10 @@ public class BlockGenerator {
 
     }
 
-    public static Block genesisBlock() {
+    public static Block generateGenesis() {
         int index = 0;
         Long timestamp = System.currentTimeMillis();
-        String hash = Security.calculateBlockHash(index, "0", timestamp, null);
+        String hash = Security.generateBlockHash(index, "0", timestamp, null);
         Block block = Block.builder()
                 .index(index)
                 .previousHash("0")
@@ -38,7 +37,7 @@ public class BlockGenerator {
     public static Block generate(final Block previousBlock, final List<Transaction> transactions) {
         int index = previousBlock.getIndex() + 1;
         Long timestamp = System.currentTimeMillis();
-        String hash = Security.calculateBlockHash(index, previousBlock.getHash(), timestamp, transactions);
+        String hash = Security.generateBlockHash(index, previousBlock.getHash(), timestamp, transactions);
         Block block = Block.builder()
                 .index(index)
                 .previousHash(previousBlock.getHash())

@@ -28,7 +28,7 @@ public class FullIndexNodeRunner {
     public void run() {
         log.info("- start run");
 
-        Block genesis = BlockGenerator.genesisBlock();
+        Block genesis = BlockGenerator.generateGenesis();
         this.blockChain.add(genesis);
 
         while (true) {
